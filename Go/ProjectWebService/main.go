@@ -1,9 +1,11 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
 	"log"
 	"net/http"
+	"time"
 )
 
 func formHandler(w http.ResponseWriter, r *http.Request) {
@@ -29,12 +31,20 @@ func helloHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	fmt.Fprintf(w, "hello!")
 }
+func timeHandler(w http.ResponseWriter, r *http.Request) {
+	currentTime := time.Now().Format(time.RFC1123)
+	json.NewEncoder(w).Encode(map[string]string{
+		"time": currentTime,
+	})
+
+}
 
 func main() {
 	fileServer := http.FileServer(http.Dir("./ProjetWebService"))
 	http.Handle("/", fileServer)
 	http.HandleFunc("/form", formHandler)
 	http.HandleFunc("/hello", helloHandler)
+	http.HandleFunc("/time", timeHandler)
 
 	fmt.Printf("Starting server at port 8080\n")
 	if err := http.ListenAndServe(":8080", nil); err != nil {
