@@ -1,13 +1,19 @@
 package main
 
 import (
+	"encoding/json"
 	"fmt"
-	"io"
 	"log"
 	"net/http"
 )
 
-func fetchCryptos() ([]byte, error) {
+// Estructura para almacenar datos de la respuesta de Binance
+type Ticker struct {
+	Symbol string `json:"symbol"`
+	Price  string `json:"price"`
+}
+
+func fetchCryptos() ([]Ticker, error) {
 	url := "https://api.binance.com/api/v3/ticker/price"
 	resp, err := http.Get(url)
 	if err != nil {
@@ -15,20 +21,22 @@ func fetchCryptos() ([]byte, error) {
 	}
 	defer resp.Body.Close()
 
-	data, err := io.ReadAll(resp.Body)
-	if err != nil {
+	var tickers []Ticker
+	if err := json.NewDecoder(resp.Body).Decode(&tickers); err != nil {
 		return nil, err
 	}
 
-	return data, nil
+	return tickers, nil
 }
 
 func main() {
-	data, err := fetchCryptos()
+	tickers, err := fetchCryptos()
 	if err != nil {
 		log.Fatalf("Error fetching data: %v", err)
 	}
 
-	fmt.Println("Data fetched successfully")
-	fmt.Println(string(data)) // Imprime los datos crudos
+	fmt.Println("Data fetched and decoded successfully")
+	for _, ticker := range tickers {
+		fmt.Printf("Symbol: %s, Price: %s\n", ticker.Symbol, ticker.Price)
+	}
 }
