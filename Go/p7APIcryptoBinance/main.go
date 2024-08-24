@@ -5,13 +5,21 @@ import (
 	"fmt"
 	"log"
 	"net/http"
+	"strconv"
 )
 
 type Ticker struct {
 	Symbol             string  `json:"symbol"`
-	Price              float64 `json:"price,string"`
-	PriceChangePercent float64 `json:"priceChangePercent,string"`
+	Price              float64 `json:"price"`
+	PriceChangePercent float64 `json:"priceChangePercent"`
 	SevenDayChange     float64 `json:"sevenDayChange"`
+}
+
+// Convertir los valores string a float64 en el proceso de decodificación.
+type rawTicker struct {
+	Symbol             string `json:"symbol"`
+	Price              string `json:"lastPrice"`
+	PriceChangePercent string `json:"priceChangePercent"`
 }
 
 func fetchTop10Cryptos() ([]Ticker, error) {
@@ -22,19 +30,33 @@ func fetchTop10Cryptos() ([]Ticker, error) {
 	}
 	defer resp.Body.Close()
 
-	var tickers []Ticker
-	if err := json.NewDecoder(resp.Body).Decode(&tickers); err != nil {
+	var rawTickers []rawTicker
+	if err := json.NewDecoder(resp.Body).Decode(&rawTickers); err != nil {
 		return nil, err
 	}
 
 	top10 := make([]Ticker, 0, 10)
-	for _, ticker := range tickers {
+	for _, rawTicker := range rawTickers {
 		if len(top10) >= 10 {
 			break
 		}
-		if ticker.Symbol == "BTCUSDT" || ticker.Symbol == "ETHUSDT" || ticker.Symbol == "BNBUSDT" {
-			sevenDayChange := calculateSevenDayChange(ticker.Symbol)
-			ticker.SevenDayChange = sevenDayChange
+		if rawTicker.Symbol == "BTCUSDT" || rawTicker.Symbol == "ETHUSDT" || rawTicker.Symbol == "BNBUSDT" {
+			price, err := strconv.ParseFloat(rawTicker.Price, 64)
+			if err != nil {
+				return nil, err
+			}
+			priceChangePercent, err := strconv.ParseFloat(rawTicker.PriceChangePercent, 64)
+			if err != nil {
+				return nil, err
+			}
+
+			ticker := Ticker{
+				Symbol:             rawTicker.Symbol,
+				Price:              price,
+				PriceChangePercent: priceChangePercent,
+				SevenDayChange:     calculateSevenDayChange(rawTicker.Symbol),
+			}
+
 			top10 = append(top10, ticker)
 		}
 	}
