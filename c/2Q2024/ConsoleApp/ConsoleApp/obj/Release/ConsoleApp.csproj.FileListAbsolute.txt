@@ -1,0 +1,7 @@
+D:\Facultad\UAI\Programacion1\ConsoleApp\ConsoleApp\bin\Release\ConsoleApp.exe.config
+D:\Facultad\UAI\Programacion1\ConsoleApp\ConsoleApp\bin\Release\ConsoleApp.exe
+D:\Facultad\UAI\Programacion1\ConsoleApp\ConsoleApp\bin\Release\ConsoleApp.pdb
+D:\Facultad\UAI\Programacion1\ConsoleApp\ConsoleApp\obj\Release\ConsoleApp.csproj.AssemblyReference.cache
+D:\Facultad\UAI\Programacion1\ConsoleApp\ConsoleApp\obj\Release\ConsoleApp.csproj.CoreCompileInputs.cache
+D:\Facultad\UAI\Programacion1\ConsoleApp\ConsoleApp\obj\Release\ConsoleApp.exe
+D:\Facultad\UAI\Programacion1\ConsoleApp\ConsoleApp\obj\Release\ConsoleApp.pdb
