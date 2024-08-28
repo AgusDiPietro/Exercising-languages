@@ -23,7 +23,7 @@ func GetTemperature(city string) string {
 	httpClient := http.Client{}
 	req, err := http.NewRequest("GET", "http://api.weatherstack.com/current", nil)
 	if err != nil {
-		panic(err)
+		panic(err) //para el proceso y nos da el error por terminal
 	}
 
 	q := req.URL.Query()
@@ -39,7 +39,7 @@ func GetTemperature(city string) string {
 	defer res.Body.Close()
 
 	var apiResponse Response
-	json.NewDecoder(res.Body).Decode(&apiResponse)
+	json.NewDecoder(res.Body).Decode(&apiResponse) // le pasamos a json el body de la resp y lo decodificamos
 
 	return fmt.Sprintf("Current temperature in %s is %d℃", apiResponse.Location.Name, apiResponse.Current.Temperature)
 }
