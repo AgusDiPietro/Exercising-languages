@@ -1,0 +1,7 @@
+C:\Users\Agust\source\repos\Tp inicial\Tp inicial\bin\Debug\Tp inicial.exe.config
+C:\Users\Agust\source\repos\Tp inicial\Tp inicial\bin\Debug\Tp inicial.exe
+C:\Users\Agust\source\repos\Tp inicial\Tp inicial\bin\Debug\Tp inicial.pdb
+C:\Users\Agust\source\repos\Tp inicial\Tp inicial\obj\Debug\Tp inicial.csproj.AssemblyReference.cache
+C:\Users\Agust\source\repos\Tp inicial\Tp inicial\obj\Debug\Tp inicial.csproj.CoreCompileInputs.cache
+C:\Users\Agust\source\repos\Tp inicial\Tp inicial\obj\Debug\Tp inicial.exe
+C:\Users\Agust\source\repos\Tp inicial\Tp inicial\obj\Debug\Tp inicial.pdb
