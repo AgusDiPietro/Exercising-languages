@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tipos de Trabajo</title>
+    <link rel="stylesheet" href="/PisosEstilo/assets/styles.css">
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="/">Inicio</a></li>
+                <li><a href="/jobs">Tipos de Trabajo</a></li>
+                <li><a href="/woods">Tipos de Madera</a></li>
+                <li><a href="/quote">Solicitar Presupuesto</a></li>
+            </ul>
+        </nav>
+    </header>
+    
+    <main>
+        <h1>Tipos de Trabajo que Realizamos</h1>
+        <section id="jobs-list">
+            <h2>Nuestros Servicios</h2>
+            <div hx-get="/jobs/data" hx-trigger="load" hx-target="#jobs-content">
+                Cargando tipos de trabajos...
+            </div>
+            <div id="jobs-content"></div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 Pisos Estilo. Todos los derechos reservados.</p>
+    </footer>
+</body>
+</html>

@@ -3,9 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Servicios de Pisos de Madera</title>
+    <title>Solicitud Enviada</title>
     <link rel="stylesheet" href="/PisosEstilo/assets/styles.css">
-</head>
 <body>
     <header>
         <nav>
@@ -19,14 +18,14 @@
     </header>
     
     <main>
-        <h1>Bienvenidos a Nuestros Servicios de Pisos de Madera</h1>
-        <section id="gallery">
-            <h2>Trabajos Realizados</h2>
-            <div hx-get="/works" hx-trigger="load" hx-target="#gallery-content">
-                Cargando trabajos...
-            </div>
-            <div id="gallery-content"></div>
-        </section>
+        <h1>Solicitud Enviada</h1>
+        <p>Gracias por tu solicitud, <strong>{{.Name}}</strong>. Hemos recibido la siguiente información:</p>
+        <ul>
+            <li><strong>Email:</strong> {{.Email}}</li>
+            <li><strong>Teléfono:</strong> {{.Phone}}</li>
+            <li><strong>Mensaje:</strong> {{.Message}}</li>
+        </ul>
+        <p>Nos pondremos en contacto contigo lo antes posible.</p>
     </main>
 
     <footer>
