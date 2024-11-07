@@ -1,6 +1,7 @@
 package main
 
 import (
+	"PisosEstilo/controllers"
 	"html/template"
 	"log"
 	"net/http"
@@ -20,9 +21,9 @@ func main() {
 
 	// Rutas a secciones
 	http.HandleFunc("/", HomePage)
-	http.HandleFunc("/jobs", JobsPage)
-	http.HandleFunc("/woods", WoodsPage)
-	http.HandleFunc("/quote", QuotePage)
+	http.HandleFunc("/jobs", controllers.JobsPage)
+	http.HandleFunc("/woods", controllers.WoodsPage)
+	http.HandleFunc("/quote", controllers.QuotePage)
 
 	// Iniciar el servidor
 	log.Println("Server running on http://localhost:8080")
@@ -32,20 +33,5 @@ func main() {
 // Funciones para cada página
 func HomePage(w http.ResponseWriter, r *http.Request) {
 	tmpl := template.Must(template.ParseFiles("templates/home.html"))
-	tmpl.Execute(w, nil)
-}
-
-func JobsPage(w http.ResponseWriter, r *http.Request) {
-	tmpl := template.Must(template.ParseFiles("templates/jobs.html"))
-	tmpl.Execute(w, nil)
-}
-
-func WoodsPage(w http.ResponseWriter, r *http.Request) {
-	tmpl := template.Must(template.ParseFiles("templates/woods.html"))
-	tmpl.Execute(w, nil)
-}
-
-func QuotePage(w http.ResponseWriter, r *http.Request) {
-	tmpl := template.Must(template.ParseFiles("templates/quote.html"))
 	tmpl.Execute(w, nil)
 }
