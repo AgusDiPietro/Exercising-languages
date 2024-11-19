@@ -25,27 +25,26 @@ func main() {
 	}
 	defer file.Close()
 
-	// Escáner para leer el archivo línea por línea
+	// Escsner para leer el archivo linea por linea
 	scanner := bufio.NewScanner(file)
 	for scanner.Scan() {
 		line := strings.TrimSpace(scanner.Text())
 
-		// Intentar parsear la línea como una IP
 		ip := net.ParseIP(line)
 		if ip == nil {
-			fmt.Printf("%s: IP inválida \n", line)
+			fmt.Printf("%s: IP invalida \n", line)
 			continue
 		}
 
-		// Si es una dirección IPv4 válida
+		// Si es una dirección IPv4 valida
 		if ip.To4() != nil {
 			if isPrivateIP(ip) {
 				fmt.Printf("%s: IP privada\n", line)
 			} else {
-				fmt.Printf("%s: IP pública\n", line)
+				fmt.Printf("%s: IP publica\n", line)
 			}
 		} else {
-			fmt.Printf("%s: IP inválida o dato no es IP\n", line)
+			fmt.Printf("%s: IP invalida o dato no es IP\n", line)
 		}
 	}
 
