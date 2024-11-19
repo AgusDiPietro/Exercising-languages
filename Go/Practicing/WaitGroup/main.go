@@ -6,8 +6,8 @@ import (
 )
 
 func printMessage(wg *sync.WaitGroup, message string) {
+	defer wg.Done() //indica a la gorutine que termino.
 	fmt.Println(message)
-	defer wg.Done()
 }
 
 func main() {
