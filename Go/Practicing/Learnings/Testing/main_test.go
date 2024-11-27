@@ -1,17 +1,32 @@
 package main
 
 import (
+	"fmt"
 	"testing"
 )
 
 func TestDivide(t *testing.T) {
-	result, err := divide(4, 2)
-	if err != nil {
-		t.Errorf("Error:", err)
-		return
+	tests := []struct {
+		a, b   float64
+		want   float64
+		hasErr bool
+	}{
+		{4, 2, 2, false},
+		{10, 5, 2, false},
+		{1, 0, 0, true},
 	}
-	if result != 2 {
-		t.Errorf("Result different to 2: %f", result)
+
+	for _, tt := range tests {
+		t.Run(fmt.Sprintf("%f/%f", tt.a, tt.b), func(t *testing.T) {
+			result, err := divide(tt.a, tt.b)
+			if (err != nil) != tt.hasErr {
+				t.Errorf("expected error: %v, error obtainedÑ %v", tt.hasErr, err)
+			}
+			if result != tt.want {
+				t.Errorf("expected: %f, obtained: %f", tt.want, result)
+			}
+
+		})
 	}
 }
 
