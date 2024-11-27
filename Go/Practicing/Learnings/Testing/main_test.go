@@ -18,6 +18,7 @@ func TestDivide(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(fmt.Sprintf("%f/%f", tt.a, tt.b), func(t *testing.T) {
+			t.Parallel()
 			result, err := divide(tt.a, tt.b)
 			if (err != nil) != tt.hasErr {
 				t.Errorf("expected error: %v, error obtainedÑ %v", tt.hasErr, err)
