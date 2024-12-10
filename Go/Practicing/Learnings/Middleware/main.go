@@ -15,12 +15,22 @@ func loggingMiddleware(next http.Handler) http.Handler {
 	})
 }
 
+func authMiddleware(next http.Handler) http.Handler {
+	return http.HandleFunc(func(w http.ResponseWriter, r *http.Request)) {
+		if r.Header.Get ("Authorization") != "Bearer token123" {
+			http.Error(w, "no authorized", http.StatusUnauthorized)
+			return
+		}
+		next.ServeHTTP(w, r)
+	}
+}
+
 func homeHandler(w http.ResponseWriter, r *http.Request) {
 	fmt.Fprintf(w, "welcome to homescreen")
 }
 
 func main() {
-	http.Handle("/", loggingMiddleware(http.HandleFunc(homeHandler)))
+	http.Handle("/", authMiddleware(loggingMiddleware(http.HandleFunc(homeHandler))))
 	fmt.Println("Server executing in http://localhost:8000")
 	http.ListenAndServe(":8000", nil)
 }
