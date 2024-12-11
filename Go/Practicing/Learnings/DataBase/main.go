@@ -32,6 +32,16 @@ func insertUsuario(db *sql.DB, nombre, email string) (int64, error) {
 	return id, nil
 }
 
+func updateUserEmail(db *sql.DB, id int64, newEmail string) error {
+	_, err := db.Exec("UPDATE user SET email = ? WHERE id = ?", newEmail, id)
+	return err
+}
+
+func deleteUser(db *sql.DB, id int64) error {
+	_, err := db.Exec("DELETE FROM usuarios WHERE id = ?", id)
+	return err
+}
+
 func main() {
 	// DSN (Data Source Name) para conectarse a la base de datos MySQL
 	dsn := "usuario:contraseña@tcp(127.0.0.1:3306)/nombre_basedatos"
