@@ -20,6 +20,18 @@ func createTable(db *sql.DB) error {
 	return err
 }
 
+func insertUsuario(db *sql.DB, nombre, email string) (int64, error) {
+	result, err := db.Exec("INSERT INTO usuarios (nombre, email) VALUES (?, ?)", nombre, email)
+	if err != nil {
+		return 0, err
+	}
+	id, err := result.LastInsertId()
+	if err != nil {
+		return 0, err
+	}
+	return id, nil
+}
+
 func main() {
 	// DSN (Data Source Name) para conectarse a la base de datos MySQL
 	dsn := "usuario:contraseña@tcp(127.0.0.1:3306)/nombre_basedatos"
@@ -40,4 +52,11 @@ func main() {
 	}
 	fmt.Println("Table created")
 
+	id, err := insertUsuario(db, "Agus", "agus@gmail.com")
+	if err != nil {
+		fmt.Println("Error", err)
+		return
+	}
+
+	fmt.Println("User inserted with ID: ", id)
 }
