@@ -60,29 +60,20 @@ func isSafeWithDampener(report []int) bool {
 		return true
 	}
 
-	// Try removing each level one by one and check if the modified report is safe
-	for i := range report {
-		modifiedReport := append(report[:i], report[i+1:]...) // Remove the i-th level
-		if isSafe(modifiedReport) {
-			return true
-		}
+	// Try removing each level one by one and check if the report becomes safe
+	for i := 0; i < len(report); i++ {
+		// Create a new report with the i-th level removed
+		newReport := make([]int, 0, len(report)-1)
+		newReport = append(newReport, report[:i]...)
+		newReport = append(newReport, report[i+1:]...)
 
-		// Try removing one element before and after as well (i-1, i+1) for broader checking
-		if i > 0 {
-			modifiedReport = append(report[:i-1], report[i:]...) // Remove i-1
-			if isSafe(modifiedReport) {
-				return true
-			}
-		}
-		if i < len(report)-1 {
-			modifiedReport = append(report[:i], report[i+2:]...) // Remove i+1
-			if isSafe(modifiedReport) {
-				return true
-			}
+		// Check if the new report is safe
+		if isSafe(newReport) {
+			return true
 		}
 	}
 
-	// If no modification makes the report safe, return false
+	// If no single level removal makes the report safe, return false
 	return false
 }
 
