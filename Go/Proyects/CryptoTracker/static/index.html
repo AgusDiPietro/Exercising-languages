@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crypto Tracker</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        table, th, td {
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+    <h1>Top 10 Cryptocurrencies by Market Cap</h1>
+    <table id="crypto-table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Symbol</th>
+                <th>Price (USD)</th>
+                <th>Market Cap</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Rows will be populated by JavaScript -->
+        </tbody>
+    </table>
+
+    <script>
+        async function fetchTop10() {
+            const response = await fetch('/api/top10');
+            const data = await response.json();
+            const tableBody = document.querySelector('#crypto-table tbody');
+
+            data.forEach(coin => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${coin.name}</td>
+                    <td>${coin.symbol}</td>
+                    <td>$${coin.current_price.toLocaleString()}</td>
+                    <td>$${coin.market_cap.toLocaleString()}</td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+
+        fetchTop10();
+    </script>
+</body>
+</html>
