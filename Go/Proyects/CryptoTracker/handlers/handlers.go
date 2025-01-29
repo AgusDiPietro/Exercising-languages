@@ -4,7 +4,7 @@ import (
 	"encoding/json"
 	"net/http"
 
-	"github.com/AgusDiPietro/Exercising-languages/tree/main/Go/Proyects/CryptoTracker/services"
+	"CryptoTracker/services"
 )
 
 func HomePage(w http.ResponseWriter, r *http.Request) {

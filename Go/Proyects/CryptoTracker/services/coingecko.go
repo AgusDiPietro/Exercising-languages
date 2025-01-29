@@ -6,7 +6,7 @@ import (
 	"io"
 	"net/http"
 
-	"github.com/AgusDiPietro/Exercising-languages/tree/main/Go/Proyects/CryptoTracker/models"
+	"CryptoTracker/models"
 )
 
 const (

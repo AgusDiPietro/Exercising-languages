@@ -1,12 +1,12 @@
 package main
-package main
 
 import (
 	"log"
 	"net/http"
 
+	"CryptoTracker/handlers"
+
 	"github.com/gorilla/mux"
-	"github.com/AgusDiPietro/Exercising-languages/tree/main/Go/Proyects/CryptoTracker/handlers"
 )
 
 func main() {
