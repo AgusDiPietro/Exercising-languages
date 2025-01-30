@@ -4,55 +4,72 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CryptoTracker</title>
-    <link rel="stylesheet" href="static/style.css">
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body>
-    <header>
-        <h1>CryptoTracker</h1>
-    </header>
-    <main>
-        <div class="container">
-             <table id="cryptoTable">
-                 <thead>
-                     <tr>
-                         <th>Symbol</th>
-                         <th>Name</th>
-                         <th>Price(USD)</th>
-                         <th>Mrkt Cap</th>
-                     </tr>
-                 </thead>
-                 <tbody>
-                    <!-- Aquí se insertarán los datos de la API-->
-                 </tbody>
+<body class="bg-gray-900 text-gray-100">
+    <header class="bg-gray-800 p-4 text-center text-xl font-bold">CryptoTracker</header>
+    
+    <main class="p-6">
+        <div class="container mx-auto">
+            <table class="w-full text-left border-collapse">
+                <thead>
+                    <tr class="bg-gray-700 text-gray-300">
+                        <th class="p-3">Symbol</th>
+                        <th class="p-3">Name</th>
+                        <th class="p-3">Price (USD)</th>
+                        <th class="p-3">Market Cap</th>
+                    </tr>
+                </thead>
+                <tbody id="cryptoTable" class="bg-gray-800">
+                    <!-- Datos de la API -->
+                </tbody>
             </table>
         </div>
-        <div class="bitcoin-symbols">
-            <span>₿</span>
-            <span>₿</span>
-            <span>₿</span>
-        </div>
     </main>
-    <form id="transactionForm">
-        <label for="transactionType">Tipo:</label>
-        <select id="transactionType" name="type">
-            <option value="buy">Compra</option>
-            <option value="sell">Venta</option>
-        </select><br>
     
-        <label for="coinSymbol">Símbolo:</label>
-        <input type="text" id="coinSymbol" name="coin_symbol"><br>
+    <h2 class="text-center text-xl font-semibold my-6">Buy/Sell</h2>
+    <form id="transactionForm" class="max-w-md mx-auto bg-gray-800 p-6 rounded-lg">
+        <label class="block mb-2">Type:</label>
+        <select id="transactionType" class="w-full p-2 mb-4 bg-gray-700 border-none rounded">
+            <option value="buy">Buy</option>
+            <option value="sell">Sell</option>
+        </select>
     
-        <label for="usdAmount">USD:</label>
-        <input type="number" id="usdAmount" name="usd_amount"><br>
+        <label class="block mb-2">Coin:</label>
+        <input type="text" id="coinSymbol" class="w-full p-2 mb-4 bg-gray-700 border-none rounded">
     
-        <label for="tokenAmount">Tokens:</label>
-        <input type="number" id="tokenAmount" name="token_amount"><br>
+        <label class="block mb-2">Total Spent:</label>
+        <input type="number" id="usdAmount" class="w-full p-2 mb-4 bg-gray-700 border-none rounded">
     
-        <button type="submit">Agregar</button>
+        <label class="block mb-2">Quantity:</label>
+        <input type="number" id="tokenAmount" class="w-full p-2 mb-4 bg-gray-700 border-none rounded">
+    
+        <button type="submit" class="w-full p-2 bg-blue-500 hover:bg-blue-700 rounded">Add</button>
     </form>
-    <footer>
-      <p>Data provided by <a href="https://www.coingecko.com/en/api">CoinGecko API</a></p>
+    
+    <footer class="text-center p-4 bg-gray-800 mt-6">
+        <p>Data provided by <a href="https://www.coingecko.com/en/api" class="text-blue-400">CoinGecko API</a></p>
     </footer>
-    <script src="static/script.js"></script>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            fetch('/api/top10')
+                .then(response => response.json())
+                .then(data => {
+                    const tableBody = document.querySelector('#cryptoTable');
+                    data.forEach(coin => {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td class='p-3'>${coin.symbol}</td>
+                            <td class='p-3'>${coin.name}</td>
+                            <td class='p-3'>${coin.current_price}</td>
+                            <td class='p-3'>${coin.market_cap}</td>
+                        `;
+                        tableBody.appendChild(row);
+                    });
+                })
+                .catch(error => console.error('Error fetching data:', error));
+        });
+    </script>
 </body>
 </html>
