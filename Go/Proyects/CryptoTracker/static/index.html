@@ -32,6 +32,24 @@
             <span>₿</span>
         </div>
     </main>
+    <form id="transactionForm">
+        <label for="transactionType">Tipo:</label>
+        <select id="transactionType" name="type">
+            <option value="buy">Compra</option>
+            <option value="sell">Venta</option>
+        </select><br>
+    
+        <label for="coinSymbol">Símbolo:</label>
+        <input type="text" id="coinSymbol" name="coin_symbol"><br>
+    
+        <label for="usdAmount">USD:</label>
+        <input type="number" id="usdAmount" name="usd_amount"><br>
+    
+        <label for="tokenAmount">Tokens:</label>
+        <input type="number" id="tokenAmount" name="token_amount"><br>
+    
+        <button type="submit">Agregar</button>
+    </form>
     <footer>
       <p>Data provided by <a href="https://www.coingecko.com/en/api">CoinGecko API</a></p>
     </footer>
